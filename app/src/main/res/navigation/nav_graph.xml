@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/mainFragment">
+
+    <fragment
+            android:id="@+id/mainFragment"
+            android:name="ru.pinguin.library.ui.fragments.MainFragment"
+            android:label="MainFragment" >
+        <action
+                android:id="@+id/action_mainFragment_to_bookFragment"
+                app:destination="@id/bookFragment" />
+        <action
+                android:id="@+id/action_mainFragment_to_createBookFragment"
+                app:destination="@id/createBookFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/bookFragment"
+            android:name="ru.pinguin.library.ui.fragments.BookFragment"
+            android:label="fragment_book"
+            tools:layout="@layout/fragment_book" />
+    <fragment
+            android:id="@+id/createBookFragment"
+            android:name="ru.pinguin.library.ui.fragments.CreateBookFragment"
+            android:label="fragment_create_book"
+            tools:layout="@layout/fragment_create_book" />
+</navigation>
