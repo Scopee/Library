@@ -1,18 +1,16 @@
 package ru.pinguin.library.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.pinguin.library.R
-import ru.pinguin.library.models.Book
+import ru.pinguin.library.models.BookShortInfo
 
 class BookAdapter(private val callback: (String) -> Unit) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
-    private var books: List<Book> = listOf()
+    private var books: List<BookShortInfo> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val inflater =
@@ -32,7 +30,7 @@ class BookAdapter(private val callback: (String) -> Unit) : RecyclerView.Adapter
     override fun getItemCount() = books.size
 
 
-    fun setList(books: List<Book>) {
+    fun setList(books: List<BookShortInfo>) {
         this.books = books
         notifyDataSetChanged()
     }
@@ -41,7 +39,7 @@ class BookAdapter(private val callback: (String) -> Unit) : RecyclerView.Adapter
         private val bookTitle: TextView = view.findViewById(R.id.book_title)
         private val bookRate: TextView = view.findViewById(R.id.book_rate)
 
-        fun bind(book: Book) {
+        fun bind(book: BookShortInfo) {
             bookTitle.text = book.title
             bookRate.text = book.rate.toString()
         }

@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -12,16 +14,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.pinguin.library.MainActivity
 import ru.pinguin.library.R
 import ru.pinguin.library.databinding.FragmentMainBinding
-import ru.pinguin.library.models.Book
+import ru.pinguin.library.models.BookShortInfo
 import ru.pinguin.library.ui.adapters.BookAdapter
+import ru.pinguin.library.viewmodel.BooksListViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
-import kotlin.math.round
 import kotlin.random.Random
 
 class MainFragment : Fragment() {
 
     private lateinit var floatingActionButton: FloatingActionButton
+
+    private lateinit var viewModel: BooksListViewModel
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var bookAdapter: BookAdapter
@@ -42,11 +46,17 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewBinding = FragmentMainBinding.inflate(layoutInflater)
         initRecyclerView(view)
-        val books = mutableListOf<Book>()
-        for (i in 1..10) {
-            books.add(Book("", "Title of Lorem Ipsum", BigDecimal(Random(123).nextDouble() * 5).setScale(2, RoundingMode.CEILING).toDouble()))
-        }
-        bookAdapter.setList(books)
+        viewModel = ViewModelProvider(
+            this,
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    return BooksListViewModel(activity as MainActivity) as T
+                }
+            }).get(BooksListViewModel::class.java)
+
+        viewModel.liveData.observe(viewLifecycleOwner, {
+            bookAdapter.setList(it)
+        })
 
         floatingActionButton = view.findViewById(R.id.main_btn_create)
         floatingActionButton.setOnClickListener {
@@ -70,7 +80,9 @@ class MainFragment : Fragment() {
 
         val refreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.swipe_container)
         refreshLayout.setOnRefreshListener {
-            refreshLayout.isRefreshing = false
+            viewModel.load {
+                refreshLayout.isRefreshing = false
+            }
         }
     }
 
