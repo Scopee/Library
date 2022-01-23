@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import ru.pinguin.library.ui.fragments.CreateBookFragment
 
-class CreateBookAdapter(private val fragment: Fragment) : FragmentStateAdapter(fragment) {
+class CreateBookAdapter(private val fragment: CreateBookFragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 2
 
-    override fun createFragment(position: Int): Fragment = CreateBookFragment.newInstance(position)
+    override fun createFragment(position: Int): Fragment = CreateBookFragment.newInstance(position, fragment)
 }

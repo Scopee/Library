@@ -16,6 +16,8 @@ class BookFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var bookInfoAdapter: BookInfoAdapter
 
+    private lateinit var isbn: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,9 +28,11 @@ class BookFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        arguments?.apply {
+            isbn = getString("isbn")!!
+        }
         val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
-        bookInfoAdapter = BookInfoAdapter(this)
+        bookInfoAdapter = BookInfoAdapter(this, isbn)
         viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = bookInfoAdapter
 
@@ -37,10 +41,12 @@ class BookFragment : Fragment() {
         }.attach()
     }
 
+
+
     companion object {
-        fun newInstance(position: Int): Fragment {
+        fun newInstance(position: Int, isbn: String): Fragment {
             return if (position == BookInfoPage.INFO.ordinal) {
-                BookInfoFragment()
+                BookInfoFragment(isbn)
             } else AnalyticsFragment()
         }
 

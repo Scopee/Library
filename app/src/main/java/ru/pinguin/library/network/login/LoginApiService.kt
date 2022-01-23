@@ -1,16 +1,15 @@
-package ru.pinguin.library.network.books
+package ru.pinguin.library.network.login
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.pinguin.library.models.Book
-import ru.pinguin.library.models.UpdateBookRequest
+import ru.pinguin.library.network.books.BooksApi
 
-object BooksApiService {
+object LoginApiService {
 
-    val service: BooksApi
+    val service: LoginApi
 
     private val BASE_URL = "http://10.0.2.2:8080"
 
@@ -26,7 +25,6 @@ object BooksApiService {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
-        service = retrofit.create(BooksApi::class.java)
+        service = retrofit.create(LoginApi::class.java)
     }
-
 }

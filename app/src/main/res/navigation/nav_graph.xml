@@ -25,5 +25,9 @@
             android:id="@+id/createBookFragment"
             android:name="ru.pinguin.library.ui.fragments.CreateBookFragment"
             android:label="fragment_create_book"
-            tools:layout="@layout/fragment_create_book" />
+            tools:layout="@layout/fragment_create_book" >
+        <action
+                android:id="@+id/action_createBookFragment_to_mainFragment"
+                app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

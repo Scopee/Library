@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object AnalyticsApiService {
     val service: AnalyticsApi
 
-    private val BASE_URL = "http://192.168.1.214:8081"
+    private val BASE_URL = "http://10.0.2.2:8081"
 
     init {
         val gson = GsonBuilder()

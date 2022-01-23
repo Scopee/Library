@@ -38,10 +38,14 @@ class CreateBookFragment : Fragment() {
         }.attach()
     }
 
+    fun switchTab(position: Int, smooth: Boolean) {
+        viewPager.setCurrentItem(position, smooth)
+    }
+
     companion object {
-        fun newInstance(position: Int): Fragment {
+        fun newInstance(position: Int, createBookFragment: CreateBookFragment): Fragment {
             return if (position == CreateBookPage.ISBN.ordinal) {
-                CreateByIsbnFragment()
+                CreateByIsbnFragment(createBookFragment)
             } else BookFromScratchFragment()
         }
     }
