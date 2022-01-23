@@ -62,7 +62,7 @@ class MainFragment : Fragment() {
         floatingActionButton.setOnClickListener {
             (activity as MainActivity).navController.navigate(R.id.action_mainFragment_to_createBookFragment,
                 Bundle().apply
-                { putString("id", "-1") })
+                { putString("isbn", "-1") })
         }
     }
 
@@ -71,7 +71,7 @@ class MainFragment : Fragment() {
         bookAdapter =
             BookAdapter {
                 (activity as MainActivity).navController.navigate(
-                    R.id.action_mainFragment_to_bookFragment
+                    R.id.action_mainFragment_to_bookFragment, Bundle().apply { putString("isbn", it) }
                 )
             }
         val manager = LinearLayoutManager(activity)
@@ -84,6 +84,12 @@ class MainFragment : Fragment() {
                 refreshLayout.isRefreshing = false
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.load {  }
+        (activity as MainActivity).hideKeyboard()
     }
 
 }
