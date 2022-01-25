@@ -11,7 +11,7 @@ object LoginApiService {
 
     val service: LoginApi
 
-    private val BASE_URL = "http://10.0.2.2:8080"
+    private val BASE_URL = "http://130.193.36.98"
 
     init {
         val gson = GsonBuilder()
